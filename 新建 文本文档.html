@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知乎热榜展示</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f6f6f6;
+            padding: 20px;
+        }
+        .header {
+            background-color: #0084ff;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .hot-item {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .hot-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .rank {
+            font-weight: bold;
+            color: #0084ff;
+            margin-right: 10px;
+        }
+        .title {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .meta {
+            color: #8590a6;
+            font-size: 12px;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+        }
+        .update-time {
+            font-size: 12px;
+            color: #8590a6;
+            text-align: right;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>知乎热榜</h1>
+            <div class="update-time" id="update-time">最后更新: --:--:--</div>
+        </div>
+        
+        <div id="hot-list">
+            <div class="loading">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">加载中...</span>
+                </div>
+                <p>正在加载热榜数据...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API地址
+        const API_URL = 'https://www.ghxi.com/ghapi?type=query&n=new';
+        
+        // 获取热榜数据
+        async function fetchHotList() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('网络响应不正常');
+                return await response.json();
+            } catch (error) {
+                console.error('获取数据失败:', error);
+                return null;
+            }
+        }
+        
+        // 渲染热榜列表
+        function renderHotList(data) {
+            const hotListContainer = document.getElementById('hot-list');
+            
+            if (!data || !data.data || !data.data.list) {
+                hotListContainer.innerHTML = '<div class="alert alert-danger">数据加载失败，请稍后重试</div>';
+                return;
+            }
+            
+            const items = data.data.list.map((item, index) => {
+                return `
+                <div class="hot-item">
+                    <div class="d-flex align-items-start">
+                        <span class="rank">${index + 1}</span>
+                        <div>
+                            <div class="title">
+                                <a href="${item.url}" target="_blank">${item.title}</a>
+                            </div>
+                            <div class="meta">
+                                <span>${item.time}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            
+            hotListContainer.innerHTML = items;
+            document.getElementById('update-time').textContent = `最后更新: ${new Date().toLocaleTimeString()}`;
+        }
+        
+        // 加载数据并渲染
+        async function loadData() {
+            const data = await fetchHotList();
+            renderHotList(data);
+        }
+        
+        // 初始加载
+        loadData();
+        
+        // 每5分钟自动刷新
+        setInterval(loadData, 5 * 60 * 1000);
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
