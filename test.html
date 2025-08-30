@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="shortcut icon" href="./Flex 布局_files/436367.jpg" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>资源站</title>
+
+    <style>
+      .ccc:hover{
+        background: linear-gradient(to right, #e0e9f5, #cfdde8);
+      }
+      body {
+        margin: 0;
+        /* vh 是view height 既视窗高度的意思，100就是100%占满窗口高度 */
+        height: 100vh;
+        background-color: #eee;
+        
+      }
+      /* * {
+        border: 1px solid #333;
+      } */
+      .flex {
+        display: flex;
+      }
+      /* 占满比例 */
+      .flex1 {
+        flex: 1;
+        
+      }
+      /* 竖向 */
+      .column {
+        flex-direction: column;
+         
+      }
+      /* 阴影 */
+      .yinYing {
+        box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+          rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+      }
+      /* 白色背景 */
+      .baiSe {
+        background-color: #fff;
+        background-image: url('./Flex 布局_files/background.jpg');
+      }
+      /* 上下左右外边距 */
+      .mg8 {
+        margin: 8px;
+      }
+      /* 右外边距 */
+      .mgr8 {
+        margin-right: 8px;
+      }
+      /* 上外边距 */
+      .mgt8 {
+        margin-top: 8px;
+       
+      }
+      /* 四个小盒子 */
+      .shuJu {
+        height: 100px;
+      }
+      /* 中间的大盒子 */
+      .lieBiaoXiang {
+        height: 160px;
+      }
+      /* 导航条 */
+      .daoHang {
+        padding: 10px 20px;
+        border-bottom: 1px solid rgb(201, 201, 201);
+        font-size: 18px;
+        font-weight: bold;
+        color: #eee;
+        
+        
+      }
+      .daoHang img {
+        height: 20px;
+        width: 20px;
+        margin-left: -10px;
+        margin-right: 5px;
+      }
+      .neiRong::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+      }
+
+      /* 当屏幕宽度小于600px时要改变的css */
+      @media (max-width: 600px) {
+        /* 小屏幕上取消侧边栏，后面学js时会教怎么弹出 */
+        .ceBian {
+          display: none;
+        }
+        /* 内容栏和数据栏flex方向改为竖向 */
+        .neiRong {
+          flex-direction: column;
+        }
+        .shuJuQu {
+          flex-direction: column;
+        }
+        /* 右区加左外边距 */
+        .youQu {
+          margin-left: 8px;
+        }
+        /* 数据块外边距，大小改为自动宽高 */
+        .shuJu {
+          margin: 0 0 8px;
+          flex: auto;
+        }
+      }
+
+      .background-image {
+          position: absolute; /* 或者 relative，根据需要选择 */
+          z-index: -1;
+          width: 100%;
+          height: 100%;
+ 
+          background-size: cover;
+          background-position: center;
+      }
+      #time {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #080808;
+            margin: 8%;
+        }
+        #date {
+            font-size: 1.5rem;
+            color: #131212;
+            margin-top: 10px;
+        }
+        .huaji {
+          width: 5em;
+          margin: 1em 6em;
+        }
+         .daoHang:hover{
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+          z-index: 10;
+        }
+        .shuJu:hover{
+          position: relative;
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          border-radius: 8px;
+          padding: 20px;
+          margin: 10px;
+        }
+        
+        .aaa:active{
+          position: relative;
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          border-radius: 8px;
+          padding: 200px;
+          margin: 10px;
+          background-image: url(./Flex\ 布局_files/966876.jpg);
+          background-size: 100%;
+
+        }
+        .aaa:active>h1 {
+          display: none;
+        }
+        .bbb:hover {
+          background: linear-gradient(to right, #f5f7fa, #e4e8eb);
+          transition: all 0.3s ease;
+        }
+        .flex>.lieBiaoXiang:hover{
+          transform: scale(1.02) translateY(-5px);
+          box-shadow: 0 14px 28px rgba(0,0,0,0.12), 0 10px 10px rgba(0,0,0,0.08);
+          border-color: #4285f4;
+        }
+        .flex1>.baiSe:hover {
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+          border: 1px solid #e0e0e0;
+        }
+        .lieBiaoXiang {
+          display: flex;
+          justify-content: center;
+          
+        }
+    </style>
+  </head>
+  <body class="flex">
+    <img class="background-image" src="./Flex 布局_files/background.jpg" alt="">
+    <!-- 侧边栏 -->
+    <div style="width: 200px; z-index: 3" class="ceBian flex column baiSe yinYing">
+      
+      <!-- 侧边头像栏 -->
+      <div style="
+          padding: 10px;
+          align-items: center;
+          justify-content: center;
+          border-bottom: 1px solid #999;
+        " class="flex">
+        <img alt="logo" src="./Flex 布局_files/logo.png" width="40px" height="40px">
+        <div  class="ccc" style="margin-left: 10px">资源站</div>
+      </div>
+      <!-- 导航栏 -->
+      <div class="flex1" style="opacity: 0.5;">
+        <a href="https://adzhp.cc/favorites/mianfeizaixian">
+          <div class="daoHang">
+            <img src="./Flex 布局_files/icon.png" alt="">
+            影视
+          </div>
+        </a>
+        <a href="https://www.gamer520.com/">
+          <div class="daoHang">
+            <img src="./Flex 布局_files/d67adcffb89dd.jpg" alt="">
+            游戏
+            
+          </div>
+        </a>
+        <a href="https://dh.ghxi.com/">
+          <div class="daoHang">
+            <img src="./Flex 布局_files/faviconV2(125)" alt="">
+            工具
+            
+          </div>
+        </a>
+        <a href="https://www.yck2025.com/">
+          <div class="daoHang">
+            <img src="./Flex 布局_files/book.jpg" alt="">
+            阅读
+            
+          </div>
+        </a>
+        <a href="./Login.html">
+          <div class="daoHang">
+            <img src="./Flex 布局_files/banner_title2.jpeg" alt="">
+            nas
+            
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- 主区域 -->
+    <div class="flex flex1 column">
+      <!-- 头部栏 -->
+      <div style="height: 60px; z-index: 2; display: flex; justify-content:center;" class="baiSe yinYing">
+        <div id="date"></div>  <!-- 显示日期 -->
+        
+      </div> 
+      <!-- 内容区 -->
+      <div class="flex flex1 neiRong" style="overflow: auto">
+        <!-- 左区 -->
+        <div style="flex: 3" class="flex column mg8">
+          <!-- 数据区 -->
+          <div class="flex shuJuQu">
+            <!-- 四个小块显示重点数据 -->
+            <a href="https://tool.pc.wiki/">
+              <div class="shuJu baiSe yinYing flex1 mgr8">
+                <img class="huaji" src="./Flex 布局_files/home.webp" alt="">
+            </div>
+            </a>
+            <a href="https://www.ghxi.com/">
+              <div class="shuJu baiSe yinYing flex1 mgr8">
+                <img style="width: 20em; margin-top: 4%;" src="./Flex 布局_files/2020logo.png" alt="">
+              </div>
+            </a>
+            <a href="https://juejin.cn/">
+              <div class="shuJu baiSe yinYing flex1 mgr8">
+                <img style="width: 18em; margin-top: 8%;" src="./Flex 布局_files/e08da34488b114bd4c665ba2fa520a31.svg" alt="">
+              </div>
+            </a>
+            <a href="https://www.bilibili.com/">
+              <div class="shuJu baiSe yinYing flex1">
+                <img style="width: 8em; margin: 1em 6em;" src="./Flex 布局_files/c8fd97a40bf79f03e7b76cbc87236f612caef7b2.png" alt="">
+              </div>
+            </a>
+          </div>
+          <!-- 列表区，列表数据可以无限增加 -->
+          <div class="flex column">
+            <!-- 列表项 -->
+            <div class="lieBiaoXiang mgt8 baiSe yinYing">
+              <h1>1.震惊！老高做这种事Σ(っ °Д °;)っ</h1>
+              <h1 style="align-self: flex-end; margin-left: -30%;">2.养殖场一母猪怀孕</h1>
+            </div>
+            <div class="lieBiaoXiang mgt8 baiSe yinYing">
+              <h1>小明因为没有买VIP，被广告商判了15s有期徒刑。</h1>
+            </div>
+            <div class="lieBiaoXiang mgt8 baiSe yinYing">
+              <h1>小明每次在大街上洗澡都感觉有人在偷窥他</h1>
+            </div>
+            <div class="lieBiaoXiang mgt8 baiSe yinYing">
+              <h1>小明家小狗走丢了，用搜狗搜不到，急死我了。。。</h1>
+            </div>
+            <div class="lieBiaoXiang mgt8 baiSe yinYing">
+              <h1>小明便秘后医生给我开了一个疗程的电钻</h1>
+            </div>
+          </div>
+        </div>
+        <!-- 右区 -->
+        <div style="flex: 1" class="youQu flex column mgr8 mgt8">
+          <!-- 提示区 -->
+          <div style="height: 150px; display: flex; justify-content: center;" class="baiSe yinYing bbb">
+            <div id="time"></div>  <!-- 显示时间 -->
+          </div>
+          <!-- 消息区 -->
+          <div style="height: 300px" class="mgt8 baiSe yinYing aaa">
+            <h1 style="margin-left: 35%;">惊喜开关</h1>
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+    <script>
+      function updateDateTime() {
+            const now = new Date();
+            
+            // 格式化时间
+            const timeStr = now.toLocaleTimeString('zh-CN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            
+            // 格式化日期
+            const dateStr = now.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                weekday: 'long'
+            });
+            
+            document.getElementById('time').textContent = timeStr;
+            document.getElementById('date').textContent = dateStr;
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        
+      </script>
+
+</body></html>
