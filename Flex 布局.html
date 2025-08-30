@@ -1,18 +1,9 @@
 <!DOCTYPE html>
-<!-- saved from url=(0032)https://www.midorg.com/flex.html -->
-<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flex 布局</title>
-    <meta name="description" content="Re01 编程课的Flex布局演示。">
-    <link rel="icon" href="https://www.midorg.com/favicon.ico">
-    <link rel="manifest" href="https://www.midorg.com/manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://www.midorg.com/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.midorg.com/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://www.midorg.com/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>资源站</title>
 
     <style>
       body {
@@ -113,14 +104,53 @@
       }
 
       .background-image {
-  position: absolute; /* 或者 relative，根据需要选择 */
-  z-index: -1;
-  width: 100%;
-  height: 100%;
+          position: absolute; /* 或者 relative，根据需要选择 */
+          z-index: -1;
+          width: 100%;
+          height: 100%;
  
-  background-size: cover;
-  background-position: center;
-}
+          background-size: cover;
+          background-position: center;
+      }
+      #time {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #080808;
+            margin: 8%;
+        }
+        #date {
+            font-size: 1.5rem;
+            color: #131212;
+            margin-top: 10px;
+        }
+        .huaji {
+          width: 5em;
+          margin: 1em 6em;
+        }
+         .daoHang:hover{
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+          z-index: 10;
+        }
+        .shuJu:hover{
+          position: relative;
+  transition: all 0.3s ease;
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+        }
+        .aaa:hover {
+          position: relative;
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          border-radius: 8px;
+          padding: 20px;
+          margin: 10px;
+          background-image: url('./Flex 布局_files/966876.jpg')
+        }
     </style>
   </head>
   <body class="flex">
@@ -155,7 +185,7 @@
           
         </div>
         <div class="daoHang">
-          <img src="./Flex 布局_files/icon.png" alt="">
+          <img src="./Flex 布局_files/book.jpg" alt="">
           阅读
           
         </div>
@@ -169,7 +199,10 @@
     <!-- 主区域 -->
     <div class="flex flex1 column">
       <!-- 头部栏 -->
-      <div style="height: 60px; z-index: 2" class="baiSe yinYing"></div>
+      <div style="height: 60px; z-index: 2; display: flex; justify-content:center;" class="baiSe yinYing">
+        <div id="date"></div>  <!-- 显示日期 -->
+        
+      </div> 
       <!-- 内容区 -->
       <div class="flex flex1 neiRong" style="overflow: auto">
         <!-- 左区 -->
@@ -177,10 +210,26 @@
           <!-- 数据区 -->
           <div class="flex shuJuQu">
             <!-- 四个小块显示重点数据 -->
-            <div class="shuJu baiSe yinYing flex1 mgr8"></div>
-            <div class="shuJu baiSe yinYing flex1 mgr8"></div>
-            <div class="shuJu baiSe yinYing flex1 mgr8"></div>
-            <div class="shuJu baiSe yinYing flex1"></div>
+            <a href="https://tool.pc.wiki/">
+              <div class="shuJu baiSe yinYing flex1 mgr8">
+                <img class="huaji" src="./Flex 布局_files/home.webp" alt="">
+            </div>
+            </a>
+            <a href="https://www.ghxi.com/">
+              <div class="shuJu baiSe yinYing flex1 mgr8">
+                <img style="width: 20em; margin-top: 4%;" src="./Flex 布局_files/2020logo.png" alt="">
+              </div>
+            </a>
+            <a href="https://juejin.cn/">
+              <div class="shuJu baiSe yinYing flex1 mgr8">
+                <img style="width: 18em; margin-top: 8%;" src="./Flex 布局_files/e08da34488b114bd4c665ba2fa520a31.svg" alt="">
+              </div>
+            </a>
+            <a href="https://www.bilibili.com/">
+              <div class="shuJu baiSe yinYing flex1">
+                <img style="width: 8em; margin: 1em 6em;" src="./Flex 布局_files/c8fd97a40bf79f03e7b76cbc87236f612caef7b2.png" alt="">
+              </div>
+            </a>
           </div>
           <!-- 列表区，列表数据可以无限增加 -->
           <div class="flex column">
@@ -195,13 +244,43 @@
         <!-- 右区 -->
         <div style="flex: 1" class="youQu flex column mgr8 mgt8">
           <!-- 提示区 -->
-          <div style="height: 150px" class="baiSe yinYing"></div>
+          <div style="height: 150px; display: flex; justify-content: center;" class="baiSe yinYing">
+            <div id="time"></div>  <!-- 显示时间 -->
+          </div>
           <!-- 消息区 -->
-          <div style="height: 300px" class="mgt8 baiSe yinYing"></div>
+          <div style="height: 300px" class="mgt8 baiSe yinYing, aaa">
+            1111111
+          </div>
         </div>
       </div>
       
     </div>
-  
+    <script>
+      function updateDateTime() {
+            const now = new Date();
+            
+            // 格式化时间
+            const timeStr = now.toLocaleTimeString('zh-CN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            
+            // 格式化日期
+            const dateStr = now.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                weekday: 'long'
+            });
+            
+            document.getElementById('time').textContent = timeStr;
+            document.getElementById('date').textContent = dateStr;
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+      </script>
 
 </body></html>
